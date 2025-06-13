@@ -13,12 +13,20 @@ class ThreadsController extends Controller
         if (\Auth::check()) { // 認証済みの場合
             // 認証済みユーザーを取得
             $user = \Auth::user();
+
             // ユーザーの投稿の一覧を作成日時の降順で取得
-            // （後のChapterで他ユーザーのスレッドも取得するように変更しますが、現時点ではこのユーザーのスレッドのみ取得します）
-            $threads = $user->threads()->orderBy('created_at', 'desc')->paginate(10);
+            //後で条件替える
+            $threadsAll = $user->threads()->orderBy('created_at', 'desc')->paginate(15);
+            //後で条件替える
+            $threadsPaticipated = $user->threads()->orderBy('created_at', 'desc')->limit(3)->get();
+            //後で条件替える
+            $threadsPopular = $user->threads()->orderBy('created_at', 'desc')->limit(3)->get();
+
             $data = [
                 'user' => $user,
-                'threads' => $threads,
+                'threadsPaticipated' => $threadsPaticipated,
+                'threadsPopular' => $threadsPopular,
+                'threadsAll' => $threadsAll,
             ];
         }
 

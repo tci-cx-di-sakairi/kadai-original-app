@@ -1,11 +1,11 @@
 <div class="mt-4">
     @if (isset($threads))
-        <ul class="list-none">
+        <ul class="list-none grid grid-cols-3">
             @foreach ($threads as $thread)
                 <li class="flex items-start gap-x-2 mb-4">
                     {{-- 投稿の所有者のメールアドレスをもとにGravatarを取得して表示 --}}
                     <div class="avatar">
-                        <div class="w-12 rounded">
+                        <div class="w-14 rounded">
                             <img src="{{ Gravatar::get($thread->user->email) }}" alt="" />
                         </div>
                     </div>
@@ -19,7 +19,9 @@
                             {{-- 投稿内容 --}}
                             <p class="mb-0">{!! nl2br(e($thread->title)) !!}</p>
                         </div>
-                        <div>
+                        <div class="flex">
+                            <a class="btn btn-success btn-sm normal-case mr-2" href="#">View</a>
+
                             @if (Auth::id() == $thread->user_id)
                                 {{-- 投稿削除ボタンのフォーム --}}
                                 <form method="POST" action="{{ route('threads.destroy', $thread->id) }}">
@@ -34,7 +36,9 @@
                 </li>
             @endforeach
         </ul>
-        {{-- ページネーションのリンク --}}
-        {{ $threads->links() }}
+        @if ($threads instanceof \Illuminate\Pagenation\Pagenator || $threads instanceof \Illuminate\Pagenation\LengthAwarePagenator)
+            {{-- ページネーションのリンク --}}
+            {{ $threads->links() }}
+        @endif
     @endif
 </div>

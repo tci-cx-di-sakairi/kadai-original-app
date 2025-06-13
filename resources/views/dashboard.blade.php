@@ -2,16 +2,23 @@
 
 @section('content')
     @if (Auth::check())
-        <div class="sm:grid sm:grid-cols-3 sm:gap-10">
-            <aside class="mt-4">
-                {{-- ユーザー情報 --}}
-                @include('users.card')
-            </aside>
-            <div class="sm:col-span-2">
-                {{-- 投稿フォーム --}}
-                @include('threads.form')
+        <div>
+            {{-- 投稿フォーム --}}
+            @include('threads.form')
+            <div>
+                <h2>You Paticipated</h2>
                 {{-- 投稿一覧 --}}
-                @include('threads.threads')
+                @include('threads.threads', ['threads' => $threadsPaticipated])
+            </div>
+            <div>
+                <h2>Most Popular</h2>
+                {{-- 投稿一覧 --}}
+                @include('threads.threads', ['threads' => $threadsPopular])
+            </div>
+            <div>
+                <h2>ALL</h2>
+                {{-- 投稿一覧 --}}
+                @include('threads.threads', ['threads' => $threadsAll])
             </div>
         </div>
     @else
