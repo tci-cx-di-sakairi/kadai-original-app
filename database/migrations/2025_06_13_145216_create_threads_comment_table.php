@@ -11,19 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('threads', function (Blueprint $table) {
+        Schema::create('threads_comment', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('title');
-            $table->string('drop_time')->nullable();
+            $table->unsignedBigInteger('thread_id');
+            $table->string('content');
             $table->timestamps();
 
             // 外部キー制約
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('thread_id')->references('id')->on('threads');
         });
-
-        // 24時間後
-        DB::statement("ALTER TABLE threads MODIFY drop_time TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 1 DAY)");
     }
 
     /**
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('threads');
+        Schema::dropIfExists('threads_comment');
     }
 };

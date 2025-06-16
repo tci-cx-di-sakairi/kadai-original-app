@@ -52,10 +52,18 @@ class User extends Authenticatable
     }
 
     /**
+     * このユーザーが所有するコメント。（ Commentモデルとの関係を定義）
+     */
+    public function Comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
      * このユーザーに関係するモデルの件数をロードする。
      */
     public function loadRelationshipCounts()
     {
-        $this->loadCount('threads');
+        $this->loadCount(['threads', 'comments']);
     }
 }

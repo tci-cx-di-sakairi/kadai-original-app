@@ -18,4 +18,12 @@ class Thread extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * このスレッドに所属するコメント。（ Commentモデルとの関係を定義）
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

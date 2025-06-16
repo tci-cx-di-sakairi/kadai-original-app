@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ThreadsController;
+use App\Http\Controllers\CommentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,11 @@ Route::get('/dashboard', [ThreadsController::class, 'index'])->middleware(['auth
 Route::middleware('auth')->group(function () {
     Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);
 
-    //Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    //Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    //Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::prefix('threads')->group(function () {
+        Route::post('/{id}/create', [CommentsController::class, 'store'])->name('comments.store');
+        Route::delete('/{id}/delete', [CommentsController::class, 'destroy'])->name('comments.delete');
+        Route::get('/{id}', [ThreadsController::class, 'show'])->name('threads.show');
+    });
 
     Route::resource('threads', ThreadsController::class, ['only' => ['store', 'destroy']]);
 });

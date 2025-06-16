@@ -5,18 +5,18 @@
         <div>
             {{-- 投稿フォーム --}}
             @include('threads.form')
-            <div>
-                <h2>You Paticipated</h2>
-                {{-- 投稿一覧 --}}
-                @include('threads.threads', ['threads' => $threadsPaticipated])
-            </div>
-            <div>
-                <h2>Most Popular</h2>
+            <div class="mt-4">
+                <h2 class="text-3xl font-bold">Most Popular</h2>
                 {{-- 投稿一覧 --}}
                 @include('threads.threads', ['threads' => $threadsPopular])
             </div>
-            <div>
-                <h2>ALL</h2>
+            <div class="mt-4">
+                <h2 class="text-3xl font-bold">You Paticipated</h2>
+                {{-- 投稿一覧 --}}
+                @include('threads.threads', ['threads' => $threadsPaticipated])
+            </div>
+            <div class="mt-4">
+                <h2 class="text-3xl font-bold">ALL</h2>
                 {{-- 投稿一覧 --}}
                 @include('threads.threads', ['threads' => $threadsAll])
             </div>
