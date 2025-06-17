@@ -36,7 +36,7 @@ class ThreadsController extends Controller
             $threadsPopular = Thread::withCount(['comments' => function($query){
                 $query->where('created_at', '>=', now()->subHours(6));
             }])
-
+            ->where('created_at', '>=', now()->subDay())
             ->orderBy('comments_count', 'desc')
             ->limit(3)
             ->get();

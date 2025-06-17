@@ -24,6 +24,8 @@ Route::get('/dashboard', [ThreadsController::class, 'index'])->middleware(['auth
 
 Route::middleware('auth')->group(function () {
     Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);
+    Route::get('/users/{id}/edit', [UsersController::class, 'edit']) -> name('users.edit');
+    Route::put('/users/{id}', [UsersController::class, 'update']) -> name('users.update');
 
     Route::prefix('threads')->group(function () {
         Route::post('/{id}/create', [CommentsController::class, 'store'])->name('comments.store');
