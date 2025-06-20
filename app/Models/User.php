@@ -44,6 +44,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * このユーザーに関係するモデルの件数をロードする。Add commentMore actions
+     */
+    public function loadRelationshipCounts()
+    {
+        $this->loadCount(['threads', 'comments']);
+    }
+
+    /**
      * このユーザーが所有するスレッド。（ Threadモデルとの関係を定義）
      */
     public function threads()

@@ -40,8 +40,6 @@ class CommentsController extends Controller
 
     public function agree($commentId)
     {
-        logger("agree 開始");
-
         $userId= auth()->user()->id;
         $comment = Comment::findOrFail($commentId);
 
@@ -51,8 +49,6 @@ class CommentsController extends Controller
         }
 
         $comment->incrementAgree();
-
-        logger("agree increment");
 
         return back()->with('Success', '"それな"しました');
     }
