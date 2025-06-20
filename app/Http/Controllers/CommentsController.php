@@ -37,4 +37,23 @@ class CommentsController extends Controller
         $comment->delete();
         return back()->with('success', 'コメントの削除に成功しました。');
     }
+
+    public function agree($commentId)
+    {
+        logger("agree 開始");
+
+        $userId= auth()->user()->id;
+        $comment = Comment::findOrFail($commentId);
+
+        if ($comment->author_id == $userId) {
+            logger("agree error");
+            return back()->with('Error', '自分の投稿は"それな"できません');
+        }
+
+        $comment->incrementAgree();
+
+        logger("agree increment");
+
+        return back()->with('Success', '"それな"しました');
+    }
 }

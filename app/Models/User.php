@@ -58,12 +58,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
-
-    /**
-     * このユーザーに関係するモデルの件数をロードする。
-     */
-    public function loadRelationshipCounts()
-    {
-        $this->loadCount(['threads', 'comments']);
-    }
 }

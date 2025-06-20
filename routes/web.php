@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ThreadsController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\CommentAgreeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/{id}/create', [CommentsController::class, 'store'])->name('comments.store');
         Route::delete('/{id}/delete', [CommentsController::class, 'destroy'])->name('comments.delete');
         Route::get('/{id}', [ThreadsController::class, 'show'])->name('threads.show');
+        Route::post('/{id}/agree', [CommentsController::class, 'agree'])->name('comments.agree');
     });
 
     Route::resource('threads', ThreadsController::class, ['only' => ['store', 'destroy']]);
