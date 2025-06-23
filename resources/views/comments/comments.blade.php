@@ -19,19 +19,18 @@
                             {{-- 投稿内容 --}}
                             <p class="mb-0">{!! nl2br(e($comment->content)) !!}</p>
                         </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            @if (Auth::id() == $comment->user->id)
-                                <div class="col-span-1">
-                                    @csrf
-                                    <div class="btn btn-sm btn-gray btn-block normal-case text-black">それな：<div>{{ $comment->agree_count }}</div></div>
-                                </div>
-                            @else
-                                {{-- フォローボタンのフォーム --}}
-                                <form method="POST" action="{{ route('comments.agree', $comment) }}">
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-primary btn-block normal-case text-white">それな：<div>{{ $comment->agree_count }}</div></button>
-                                </form>
-                            @endif
+                        <div class="flex">
+                            <div class="mr-4">
+                                @if (Auth::id() == $comment->user->id)
+                                <div class="btn btn-sm btn-gray btn-inline normal-case text-black">Yup：<div>{{ $comment->agree_count }}</div></div>
+                                    @else
+                                    {{-- それなボタンのフォーム --}}
+                                    <form method="POST" action="{{ route('comments.agree', $comment) }}">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-primary btn-block normal-case text-white">Yup：<div>{{ $comment->agree_count }}</div></button>
+                                    </form>
+                                @endif
+                            </div>
 
                             @if (Auth::id() == $comment->user_id || Auth::id() == $thread->user_id)
                                 {{-- コメント削除ボタンのフォーム --}}

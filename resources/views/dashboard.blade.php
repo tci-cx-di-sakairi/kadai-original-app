@@ -3,6 +3,7 @@
 @section('content')
     @if (Auth::check())
         <div>
+            <div class="text-center"><h2 class="text-3xl font-bold">- Let's start conversations! -</h2></div>
             {{-- 投稿フォーム --}}
             @include('threads.form')
             <div class="mt-4">

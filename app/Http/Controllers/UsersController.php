@@ -33,9 +33,9 @@ class UsersController extends Controller
         if($user->threads_count >= 10 && $user->comments_count >= 10) {
             $title = 'Pro User';
         } elseif ($user->threads_count >= 10) {
-            $title = '話題クリエイター';
+            $title = 'Thread Creator';
         } elseif ($user->comments_count >= 10) {
-            $title = 'コメンテーター';
+            $title = 'Commentator';
         } else {
             $title = 'Beginner';
         }

@@ -23,7 +23,7 @@ class CommentsController extends Controller
             'thread_id' => $thread->id,
         ]);
 
-        return redirect()->route('threads.show', $thread->id)->with('success', 'コメントを投稿しました。');
+        return redirect()->route('threads.show', $thread->id)->with('success', 'The comment is pushed.');
     }
 
     public function destroy($id){
@@ -31,11 +31,11 @@ class CommentsController extends Controller
         $userId = Auth::id();
 
         if($userId !== $comment->user_id && $userId !== $comment->thread->user_id){
-            return back()->with('error', 'あなたにその権限はありません。');
+            return back()->with('Error', 'Permission error:You have no permission to delete the item.');
         }
 
         $comment->delete();
-        return back()->with('success', 'コメントの削除に成功しました。');
+        return back()->with('Success', 'Delete successed');
     }
 
     public function agree($commentId)
@@ -45,11 +45,11 @@ class CommentsController extends Controller
 
         if ($comment->author_id == $userId) {
             logger("agree error");
-            return back()->with('Error', '自分の投稿は"それな"できません');
+            return back()->with('Error', 'You cannot agree your comment.');
         }
 
         $comment->incrementAgree();
 
-        return back()->with('Success', '"それな"しました');
+        return back()->with('Success', 'You agreed the comment.');
     }
 }

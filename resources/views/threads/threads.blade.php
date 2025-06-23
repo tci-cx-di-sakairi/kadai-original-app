@@ -35,7 +35,7 @@
                     </div>
                 </li>
             @empty
-                <li>条件に合うスレッドはありません。</ｌ>
+                <li>The are no threads today.</li>
             @endforelse
         </ul>
         @if ($threads instanceof \Illuminate\Pagenation\Pagenator || $threads instanceof \Illuminate\Pagenation\LengthAwarePagenator)
