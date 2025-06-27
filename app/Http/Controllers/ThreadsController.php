@@ -91,7 +91,7 @@ class ThreadsController extends Controller
 
         if($thread->drop_time < now()){
             logger("Thread Valid");
-            return back();
+            return back()-with("Error", "Thread is expired");
         }
 
         $comments = $thread->comments()->orderby('created_at', 'desc')->paginate(20);
