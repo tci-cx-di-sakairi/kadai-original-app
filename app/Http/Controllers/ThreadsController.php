@@ -88,6 +88,12 @@ class ThreadsController extends Controller
 
     public function show($id){
         $thread = Thread::findOrFail($id);
+
+        if($thread->drop_time < now()){
+            logger("Thread Valid");
+            return back();
+        }
+
         $comments = $thread->comments()->orderby('created_at', 'desc')->paginate(20);
 
         $data = [
